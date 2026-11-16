@@ -73,6 +73,9 @@
             <button onclick="switchTab('glossary')" id="btn-glossary" class="tab-btn py-3.5 px-3 sm:px-4 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center gap-1.5 whitespace-nowrap transition">
                 <i class="fa-solid fa-list-check"></i> 3. 公式・単位まとめ
             </button>
+            <button onclick="switchTab('generator')" id="btn-generator" class="tab-btn py-3.5 px-3 sm:px-4 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center gap-1.5 whitespace-nowrap transition">
+                <i class="fa-solid fa-wand-magic-sparkles text-indigo-600"></i> 4. 問題の追加・AI生成
+            </button>
         </div>
     </nav>
 
@@ -248,9 +251,10 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="text-xs text-slate-500 font-bold mr-1">コース選択：</span>
                         <button onclick="filterLevel('all')" id="filter-all" class="px-3 py-1.5 text-xs rounded-lg bg-blue-600 text-white font-bold transition">全15問通し</button>
-                        <button onclick="filterLevel('basic')" id="filter-basic" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition">① 基礎編 (5問)</button>
-                        <button onclick="filterLevel('standard')" id="filter-standard" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition">② プリント実戦編 (6問)</button>
-                        <button onclick="filterLevel('stepup')" id="filter-stepup" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition">③ ステップアップ編 (4問)</button>
+                        <button onclick="filterLevel('basic')" id="filter-basic" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition">① 基礎編</button>
+                        <button onclick="filterLevel('standard')" id="filter-standard" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition">② プリント実戦編</button>
+                        <button onclick="filterLevel('stepup')" id="filter-stepup" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition">③ ステップアップ編</button>
+                        <button onclick="filterLevel('custom')" id="filter-custom" class="px-3 py-1.5 text-xs rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 font-bold transition">✨ 追加・生成問題 (<span id="custom-count">0</span>)</button>
                     </div>
                 </div>
 
@@ -411,6 +415,163 @@
                         <span class="font-bold text-amber-700">④</span>
                         <span><b>圧力の単位（Pa・MPa・GPa）の関係：</b> <b>1 N/mm² ＝ 1 MPa</b> です。また、1 MPa ＝ 1,000,000 Pa（10⁶ Pa）、1 GPa ＝ 1000 MPa です。</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: PROBLEM GENERATOR & API (問題の追加・AI生成) -->
+        <div id="tab-generator" class="tab-content space-y-6">
+            <!-- Intro Banner -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-xl flex items-start gap-3">
+                <i class="fa-solid fa-wand-magic-sparkles text-indigo-600 text-xl mt-0.5"></i>
+                <div>
+                    <h2 class="font-bold text-indigo-950 text-base sm:text-lg">
+                        新しい問題をどんどん追加しよう！
+                    </h2>
+                    <p class="text-xs sm:text-sm text-indigo-800 mt-1">
+                        ① <b>数値ランダム自動生成（API不要）</b>、② <b>Gemini AIによる新問題・プリント画像からの自動生成（API利用）</b>、③ <b>手動での問題追加</b> の3つの方法に対応しています。追加した問題はブラウザに自動保存されます。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Method 1: Algorithmic Infinite Generator (No API Needed) -->
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">APIキー不要・即座に生成</span>
+                            <span class="text-xs text-slate-400 font-bold">計算ミスゼロ</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-dice text-emerald-600"></i> ① 数値シャッフル自動生成
+                        </h3>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            プリントと同じパターンの計算問題を、数値をランダムに変えて自動作成します。割り切れる綺麗な数値になるようプログラムで調整されているため、反復練習に最適です。
+                        </p>
+                        <div class="space-y-3 mb-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">生成する問題のテーマ</label>
+                                <select id="algo-topic" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:border-emerald-500">
+                                    <option value="random">おまかせ（全範囲からランダム）</option>
+                                    <option value="stress_basic">応力の基本計算（σ ＝ F ÷ A₀）</option>
+                                    <option value="stress_circle">円形断面の応力（直径 d から計算）</option>
+                                    <option value="strain">ひずみと伸びた後の長さ（ε, l, l₀）</option>
+                                    <option value="young">ヤング率と単位換算（E, MPa, GPa）</option>
+                                    <option value="tensile">降伏応力と引張強さ（σᵧ, σᴃ）</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="generateAlgorithmicQuestion()" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold py-3 px-4 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-bolt"></i> ワンクリックで類題を1問追加する
+                    </button>
+                </div>
+
+                <!-- Method 2: Gemini AI Generator (Text & Image API) -->
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-full">Gemini API 連携</span>
+                            <span class="text-xs text-slate-400 font-bold">応用・プリント写真対応</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-indigo-600"></i> ② AIで新しい問題を生成
+                        </h3>
+                        <p class="text-xs text-slate-600 mb-3 leading-relaxed">
+                            AIに指示を出してオリジナルの問題を作らせたり、新しいプリント（その31など）の写真を読み取らせてアプリの問題に変換できます。
+                        </p>
+
+                        <div class="space-y-3 mb-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">AIへのリクエスト（単元や難易度など）</label>
+                                <input type="text" id="ai-prompt" value="破断伸びと絞りの計算問題を作って" placeholder="例：ヤング率と応力の少し難しい応用問題を作って" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">またはプリント画像を添付（任意）</label>
+                                <input type="file" id="ai-image" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                            </div>
+                            <details class="text-xs text-slate-500">
+                                <summary class="cursor-pointer font-bold hover:text-slate-700">外部公開用のAPIキー設定（任意）</summary>
+                                <div class="mt-2 p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                                    <p class="mb-1.5 text-[11px]">※このプレビュー画面では空欄のままで動作します。HTMLファイルをダウンロードして学校や自宅の別環境で動かす場合は、Google AI StudioのAPIキーを入力してください。</p>
+                                    <input type="password" id="custom-api-key" placeholder="AIzaSy..." class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-xs font-mono">
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    <button onclick="generateAIQuestion()" id="btn-ai-gen" class="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold py-3 px-4 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> AIで問題を生成して追加
+                    </button>
+                </div>
+            </div>
+
+            <!-- Status Message Box -->
+            <div id="gen-status" class="hidden p-4 rounded-xl border text-sm font-bold flex items-center justify-between gap-3">
+                <div id="gen-status-text" class="flex items-center gap-2"></div>
+                <button onclick="startCustomQuiz()" class="bg-slate-800 hover:bg-slate-900 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap">
+                    追加した問題を解く <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+
+            <!-- Method 3: Manual Question Form & Manage List -->
+            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-pen-clip text-blue-600"></i> ③ 先生・生徒による手動問題作成 ＆ 追加済み問題一覧
+                    </h3>
+                    <button onclick="clearCustomQuestions()" class="text-xs text-rose-600 hover:text-rose-800 font-bold self-start sm:self-auto">
+                        <i class="fa-solid fa-trash-can mr-1"></i> 追加した問題をすべてリセット
+                    </button>
+                </div>
+
+                <!-- Manual Input Accordion -->
+                <details class="mt-4 bg-slate-50 rounded-xl border border-slate-200 p-4">
+                    <summary class="font-bold text-sm text-slate-700 cursor-pointer flex items-center justify-between">
+                        <span>＋ 手動でオリジナルの問題を入力して追加する</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                    </summary>
+                    <div class="mt-4 space-y-3 text-sm">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 mb-1">バッジ名（単元名）</label>
+                                <input type="text" id="manual-badge" value="✨ オリジナル問題" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-600 mb-1">正解の数値</label>
+                                    <input type="number" step="any" id="manual-answer" placeholder="例: 50" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-600 mb-1">単位</label>
+                                    <input type="text" id="manual-unit" value="N/mm²" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">問題文</label>
+                            <textarea id="manual-question" rows="2" placeholder="例: 断面積 10 mm² の試験片を 500 N で引っ張ったときの応力は何 N/mm² か答えよ。" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 mb-1">ヒント</label>
+                                <input type="text" id="manual-hint" placeholder="例: σ ＝ F ÷ A₀ を使います。" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 mb-1">解説</label>
+                                <input type="text" id="manual-exp" placeholder="例: 500 ÷ 10 ＝ 50 N/mm² となります。" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            </div>
+                        </div>
+                        <div class="text-right pt-2">
+                            <button onclick="addManualQuestion()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-lg text-xs shadow">
+                                <i class="fa-solid fa-plus mr-1"></i> この内容で問題リストに追加
+                            </button>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Added Questions List -->
+                <div id="custom-questions-list" class="mt-4 space-y-2 max-h-72 overflow-y-auto">
+                    <!-- Populated via JS -->
                 </div>
             </div>
         </div>
@@ -753,10 +914,13 @@
         // Filter Level
         function filterLevel(level) {
             currentFilter = level;
-            ['all', 'basic', 'standard', 'stepup'].forEach(l => {
+            ['all', 'basic', 'standard', 'stepup', 'custom'].forEach(l => {
                 const btn = document.getElementById('filter-' + l);
+                if (!btn) return;
                 if (l === level) {
                     btn.className = "px-3 py-1.5 text-xs rounded-lg bg-blue-600 text-white font-bold transition shadow-sm";
+                } else if (l === 'custom') {
+                    btn.className = "px-3 py-1.5 text-xs rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 font-bold transition";
                 } else {
                     btn.className = "px-3 py-1.5 text-xs rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition";
                 }
@@ -796,6 +960,8 @@
                 badgeEl.className = "bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full";
             } else if (q.level === 'standard') {
                 badgeEl.className = "bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full";
+            } else if (q.level === 'custom') {
+                badgeEl.className = "bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full";
             } else {
                 badgeEl.className = "bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full";
             }
@@ -887,8 +1053,402 @@
             loadQuestion();
         }
 
+        // ==========================================
+        // 新規機能：問題の自動生成・AI生成・ローカル保存
+        // ==========================================
+        let customQuestions = [];
+
+        function loadCustomQuestionsFromStorage() {
+            try {
+                const saved = localStorage.getItem('kouzaigi_custom_questions');
+                if (saved) {
+                    customQuestions = JSON.parse(saved);
+                    customQuestions.forEach(q => {
+                        if (!allQuestions.some(existing => existing.id === q.id)) {
+                            allQuestions.push(q);
+                        }
+                    });
+                }
+            } catch (e) {
+                console.warn('Storage read error', e);
+            }
+            updateCustomQuestionUI();
+        }
+
+        function saveCustomQuestion(newQ) {
+            customQuestions.push(newQ);
+            allQuestions.push(newQ);
+            try {
+                localStorage.setItem('kouzaigi_custom_questions', JSON.stringify(customQuestions));
+            } catch (e) {
+                console.warn('Storage write error', e);
+            }
+            updateCustomQuestionUI();
+            if (currentFilter === 'all' || currentFilter === 'custom') {
+                filteredQuestions = currentFilter === 'all' ? [...allQuestions] : allQuestions.filter(q => q.level === 'custom');
+            }
+        }
+
+        function updateCustomQuestionUI() {
+            const countEl = document.getElementById('custom-count');
+            if (countEl) countEl.innerText = customQuestions.length;
+
+            const allBtn = document.getElementById('filter-all');
+            if (allBtn) allBtn.innerText = `全${allQuestions.length}問通し`;
+
+            const listEl = document.getElementById('custom-questions-list');
+            if (!listEl) return;
+
+            if (customQuestions.length === 0) {
+                listEl.innerHTML = `<div class="text-xs text-slate-400 py-3 text-center">まだ追加された問題はありません。上の①・②・③から問題を追加してみましょう！</div>`;
+                return;
+            }
+
+            listEl.innerHTML = customQuestions.map((q, idx) => `
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between gap-3 text-xs">
+                    <div>
+                        <span class="font-bold text-indigo-700">[${q.badge}]</span>
+                        <span class="text-slate-700 ml-1">${q.question}</span>
+                        <span class="font-mono font-bold text-emerald-700 ml-2">（答: ${q.answer} ${q.unit}）</span>
+                    </div>
+                    <button onclick="practiceSingleCustom(${q.id})" class="px-2.5 py-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold rounded whitespace-nowrap">
+                        挑戦する
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function showGenStatus(message, isError = false) {
+            const box = document.getElementById('gen-status');
+            const text = document.getElementById('gen-status-text');
+            box.classList.remove('hidden');
+            if (isError) {
+                box.className = "p-4 rounded-xl border bg-rose-50 border-rose-200 text-rose-800 text-sm font-bold flex items-center justify-between gap-3";
+                text.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-600"></i> <span>${message}</span>`;
+            } else {
+                box.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-900 text-sm font-bold flex items-center justify-between gap-3";
+                text.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> <span>${message}</span>`;
+            }
+        }
+
+        function startCustomQuiz() {
+            switchTab('quiz');
+            filterLevel('custom');
+            currentIndex = filteredQuestions.length - 1;
+            loadQuestion();
+        }
+
+        function practiceSingleCustom(id) {
+            switchTab('quiz');
+            filterLevel('custom');
+            const idx = filteredQuestions.findIndex(q => q.id === id);
+            if (idx !== -1) {
+                currentIndex = idx;
+                loadQuestion();
+            }
+        }
+
+        function clearCustomQuestions() {
+            customQuestions = [];
+            try {
+                localStorage.removeItem('kouzaigi_custom_questions');
+            } catch (e) {}
+            // Keep original 15 questions
+            allQuestions.splice(15);
+            updateCustomQuestionUI();
+            filterLevel('all');
+            showGenStatus("追加した問題をすべてリセットしました（初期の15問に戻りました）。");
+        }
+
+        // ① アルゴリズムによる自動問題生成（API不要・計算ミスゼロ）
+        function generateAlgorithmicQuestion() {
+            let topic = document.getElementById('algo-topic').value;
+            const topics = ['stress_basic', 'stress_circle', 'strain', 'young', 'tensile'];
+            if (topic === 'random') {
+                topic = topics[Math.floor(Math.random() * topics.length)];
+            }
+
+            const newId = Date.now();
+            let qObj = null;
+
+            if (topic === 'stress_basic') {
+                const A0 = [10, 15, 20, 25, 40, 50][Math.floor(Math.random() * 6)];
+                const sigma = [12, 15, 20, 24, 30, 35, 40, 45][Math.floor(Math.random() * 8)];
+                const F = A0 * sigma;
+                qObj = {
+                    id: newId,
+                    level: "custom",
+                    badge: "🎲 自動生成・応力",
+                    source: "類題シャッフル生成",
+                    question: `断面積が ${A0} mm² の試験片を ${F} N の力で引っ張ったときに発生する応力は何 N/mm² か答えなさい。`,
+                    hint: "応力 σ ＝ 荷重 F ÷ 原断面積 A₀ を使います。",
+                    answer: sigma,
+                    tolerance: 0.01,
+                    unit: "N/mm²",
+                    explanation: `
+                        <div class="font-bold text-slate-800 mb-1">【解き方】</div>
+                        <div>応力の公式 <b>σ ＝ F ÷ A₀</b> に当てはめます。</div>
+                        <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">σ ＝ ${F} ÷ ${A0} ＝ ${sigma} N/mm²</div>
+                    `
+                };
+            } else if (topic === 'stress_circle') {
+                const r = [5, 10, 20][Math.floor(Math.random() * 3)];
+                const d = r * 2;
+                const A0 = +(r * r * 3.14).toFixed(2);
+                const mult = [10, 20, 50, 100][Math.floor(Math.random() * 4)];
+                const F = +(A0 * mult).toFixed(0);
+                qObj = {
+                    id: newId,
+                    level: "custom",
+                    badge: "🎲 自動生成・円形断面",
+                    source: "類題シャッフル生成",
+                    question: `断面が直径 ${d} mm の円形の試験片を ${F} N の力で引っ張ったときの応力は何 N/mm² か答えなさい。（円周率は 3.14 とする）`,
+                    hint: `直径 ${d} mm なので、半径 r ＝ ${r} mm です。まず断面積 A₀ ＝ ${r} × ${r} × 3.14 を求めましょう。`,
+                    answer: mult,
+                    tolerance: 0.05,
+                    unit: "N/mm²",
+                    explanation: `
+                        <div class="font-bold text-slate-800 mb-1">【解き方】</div>
+                        <div>1. 半径 r ＝ ${d} ÷ 2 ＝ ${r} mm より、断面積 A₀ ＝ ${r} × ${r} × 3.14 ＝ ${A0} mm²</div>
+                        <div>2. 応力 σ ＝ F ÷ A₀ を計算します。</div>
+                        <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">σ ＝ ${F} ÷ ${A0} ＝ ${mult} N/mm²</div>
+                    `
+                };
+            } else if (topic === 'strain') {
+                const l0 = [20, 40, 50, 80, 100][Math.floor(Math.random() * 5)];
+                const eps = [0.02, 0.05, 0.08, 0.1, 0.15, 0.2][Math.floor(Math.random() * 6)];
+                const dl = +(l0 * eps).toFixed(2);
+                const l = +(l0 + dl).toFixed(2);
+                qObj = {
+                    id: newId,
+                    level: "custom",
+                    badge: "🎲 自動生成・ひずみ",
+                    source: "類題シャッフル生成",
+                    question: `元の長さが ${l0} mm の試験片を引き延ばしたところ、長さが ${l} mm になった。このときのひずみ（ε）はいくつか答えなさい。`,
+                    hint: "ひずみ ε ＝ (伸びた後の長さ l － 元の長さ l₀) ÷ 元の長さ l₀ です。",
+                    answer: eps,
+                    tolerance: 0.001,
+                    unit: "（単位なし）",
+                    explanation: `
+                        <div class="font-bold text-slate-800 mb-1">【解き方】</div>
+                        <div>伸びた長さ (l － l₀) ＝ ${l} － ${l0} ＝ ${dl} mm</div>
+                        <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">ε ＝ ${dl} ÷ ${l0} ＝ ${eps}</div>
+                    `
+                };
+            } else if (topic === 'young') {
+                const eps = [0.001, 0.002, 0.004, 0.005][Math.floor(Math.random() * 4)];
+                const sigma = [40, 60, 80, 100, 120, 200][Math.floor(Math.random() * 6)];
+                const E_MPa = sigma / eps;
+                const E_GPa = E_MPa / 1000;
+                qObj = {
+                    id: newId,
+                    level: "custom",
+                    badge: "🎲 自動生成・ヤング率",
+                    source: "類題シャッフル生成",
+                    question: `${sigma} MPa（N/mm²）の応力が発生している材料のひずみが ${eps} だった時、この材料のヤング率は何 GPa か答えなさい。（※ 1 GPa ＝ 1000 MPa）`,
+                    hint: "ヤング率 E ＝ 応力 σ ÷ ひずみ ε で MPa を求め、最後に 1000 で割って GPa に換算します。",
+                    answer: E_GPa,
+                    tolerance: 0.05,
+                    unit: "GPa",
+                    explanation: `
+                        <div class="font-bold text-slate-800 mb-1">【解き方】</div>
+                        <div>1. ヤング率 E ＝ ${sigma} ÷ ${eps} ＝ ${E_MPa} MPa</div>
+                        <div>2. 1 GPa ＝ 1000 MPa より、1000 で割ります。</div>
+                        <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">E ＝ ${E_MPa} ÷ 1000 ＝ ${E_GPa} GPa</div>
+                    `
+                };
+            } else {
+                const A0 = [10, 20, 25, 40, 50][Math.floor(Math.random() * 5)];
+                const sigmaY = [15, 20, 25, 30][Math.floor(Math.random() * 4)];
+                const sigmaB = sigmaY + [15, 20, 30][Math.floor(Math.random() * 3)];
+                const Fy1 = A0 * sigmaY;
+                const Fmax = A0 * sigmaB;
+                qObj = {
+                    id: newId,
+                    level: "custom",
+                    badge: "🎲 自動生成・引張試験",
+                    source: "類題シャッフル生成",
+                    question: `原断面積が不明の試験片で引張試験を行った結果、上降伏点の力は ${Fy1} N、最大力は ${Fmax} N、引張強さは ${sigmaB} N/mm² だった。この試験片の「降伏応力（σᵧ）」は何 N/mm² か答えなさい。`,
+                    hint: `まず A₀ ＝ 最大力 ${Fmax} ÷ 引張強さ ${sigmaB} で原断面積を求め、上降伏点の力 ${Fy1} N を A₀ で割りましょう。`,
+                    answer: sigmaY,
+                    tolerance: 0.05,
+                    unit: "N/mm²",
+                    explanation: `
+                        <div class="font-bold text-slate-800 mb-1">【解き方】</div>
+                        <div>1. 原断面積 A₀ ＝ F_MAX ÷ σᴃ ＝ ${Fmax} ÷ ${sigmaB} ＝ ${A0} mm²</div>
+                        <div>2. 降伏応力 σᵧ ＝ Fᵧ₁ ÷ A₀ を計算します。</div>
+                        <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">σᵧ ＝ ${Fy1} ÷ ${A0} ＝ ${sigmaY} N/mm²</div>
+                    `
+                };
+            }
+
+            saveCustomQuestion(qObj);
+            showGenStatus(`新しい問題「${qObj.badge}」を追加しました！（現在 全${allQuestions.length}問）`);
+        }
+
+        // Helper: Convert Image File to Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const base64String = reader.result.split(',')[1];
+                    resolve(base64String);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ② Gemini APIを使ったAI問題自動生成（テキスト指示＆プリント画像対応）
+        async function generateAIQuestion() {
+            const promptInput = document.getElementById('ai-prompt').value.trim();
+            const imageInput = document.getElementById('ai-image');
+            const customKey = document.getElementById('custom-api-key').value.trim();
+            const btn = document.getElementById('btn-ai-gen');
+
+            const apiKey = customKey || ""; // Canvas環境では空文字で自動認証されます
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> AIが問題と解説を作成中...`;
+
+            try {
+                const systemInstruction = `あなたは工業高校の「工業材料（機械的性質：応力、ひずみ、ヤング率、降伏応力、引張強さ、破断伸び、絞り）」の先生です。
+生徒が復習アプリで解くための計算問題を1問作成し、指定されたJSONフォーマットで出力してください。
+【重要なルール】
+・LaTeX記号（$ や \\frac など）は絶対に使わないでください。すべてプレーンなテキストと「÷」「×」「σ」「ε」「A₀」「l₀」などの文字で記述してください。
+・答え（answer）は単一の数値（整数または小数）にしてください。`;
+
+                const userParts = [];
+                if (imageInput.files && imageInput.files[0]) {
+                    const file = imageInput.files[0];
+                    const b64 = await fileToBase64(file);
+                    userParts.push({
+                        inlineData: {
+                            mimeType: file.type || "image/png",
+                            data: b64
+                        }
+                    });
+                    userParts.push({
+                        text: `添付されたプリント画像の内容を読み取り、そこに含まれる問題（またはその類題）を1問作成してください。追加の要望: ${promptInput || "なし"}`
+                    });
+                } else {
+                    userParts.push({
+                        text: `次のリクエストに沿った工業材料の力学の計算問題を1問作成してください: 「${promptInput || "応力とひずみの応用問題"}」`
+                    });
+                }
+
+                const payload = {
+                    contents: [{ role: "user", parts: userParts }],
+                    systemInstruction: { parts: [{ text: systemInstruction }] },
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                badge: { type: "STRING", description: "短い単元バッジ名（例: 🤖 AI生成・破断伸び）" },
+                                question: { type: "STRING", description: "問題文（LaTeX禁止、単位を明記）" },
+                                hint: { type: "STRING", description: "使う公式やヒント（LaTeX禁止）" },
+                                answer: { type: "NUMBER", description: "正解の数値のみ" },
+                                unit: { type: "STRING", description: "答えの単位（例: N/mm², mm, GPa, % など）" },
+                                explanationText: { type: "STRING", description: "わかりやすい途中式と解説（LaTeX禁止）" }
+                            },
+                            required: ["badge", "question", "hint", "answer", "unit", "explanationText"]
+                        }
+                    }
+                };
+
+                // Exponential backoff retry
+                let response = null;
+                let delay = 1000;
+                for (let attempt = 0; attempt < 3; attempt++) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) break;
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                }
+
+                if (!response || !response.ok) {
+                    throw new Error("API通信に失敗しました。外部環境でご利用の場合はAPIキーをご確認ください。");
+                }
+
+                const result = await response.json();
+                const rawJson = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!rawJson) throw new Error("AIからの応答データの解析に失敗しました。");
+
+                const parsed = JSON.parse(rawJson);
+                const newQ = {
+                    id: Date.now(),
+                    level: "custom",
+                    badge: parsed.badge || "🤖 AI生成問題",
+                    source: "Gemini AI 生成",
+                    question: parsed.question,
+                    hint: parsed.hint,
+                    answer: Number(parsed.answer),
+                    tolerance: Math.max(Math.abs(Number(parsed.answer)) * 0.02, 0.01),
+                    unit: parsed.unit || "",
+                    explanation: `
+                        <div class="font-bold text-slate-800 mb-1">【AI解説】</div>
+                        <div class="whitespace-pre-line">${parsed.explanationText}</div>
+                        <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">正解：${parsed.answer} ${parsed.unit}</div>
+                    `
+                };
+
+                saveCustomQuestion(newQ);
+                showGenStatus(`AIが新しい問題「${newQ.badge}」を作成・追加しました！`);
+            } catch (err) {
+                showGenStatus(err.message || "AI生成中にエラーが発生しました。", true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> AIで問題を生成して追加`;
+            }
+        }
+
+        // ③ 先生・生徒による手動問題追加
+        function addManualQuestion() {
+            const badge = document.getElementById('manual-badge').value.trim() || "✨ オリジナル問題";
+            const question = document.getElementById('manual-question').value.trim();
+            const answerStr = document.getElementById('manual-answer').value.trim();
+            const unit = document.getElementById('manual-unit').value.trim();
+            const hint = document.getElementById('manual-hint').value.trim() || "基本公式を確認して計算してみましょう。";
+            const exp = document.getElementById('manual-exp').value.trim() || "公式に数値を当てはめて計算します。";
+
+            if (!question || answerStr === '' || isNaN(parseFloat(answerStr))) {
+                showGenStatus("問題文と正解の数値を入力してください。", true);
+                return;
+            }
+
+            const ansNum = parseFloat(answerStr);
+            const newQ = {
+                id: Date.now(),
+                level: "custom",
+                badge: badge,
+                source: "先生・オリジナル作成",
+                question: question,
+                hint: hint,
+                answer: ansNum,
+                tolerance: 0.05,
+                unit: unit,
+                explanation: `
+                    <div class="font-bold text-slate-800 mb-1">【解説】</div>
+                    <div>${exp}</div>
+                    <div class="mt-2 font-mono font-bold bg-slate-100 p-2.5 rounded-lg text-blue-700">正解：${ansNum} ${unit}</div>
+                `
+            };
+
+            saveCustomQuestion(newQ);
+            document.getElementById('manual-question').value = '';
+            document.getElementById('manual-answer').value = '';
+            showGenStatus(`手動作成した問題「${newQ.badge}」を追加しました！`);
+        }
+
         // Initialize on load
         window.onload = function() {
+            loadCustomQuestionsFromStorage();
             updateRankDisplay();
             loadQuestion();
         };
