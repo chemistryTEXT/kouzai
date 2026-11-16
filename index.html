@@ -50,4 +50,951 @@
     <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
       <div>
         <div class="flex items-center gap-2">
-          <span class="bg-blue-600 text-xs font-bold px-2 py-0.5 rounded">2学年 工業材料技術
+          <span class="bg-blue-600 text-xs font-bold px-2 py-0.5 rounded">2学年 工業材料技術</span>
+          <span class="text-xs text-slate-400">プリント その28〜30 対応</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-black tracking-tight mt-0.5">工材技・機械的性質 復習マスター</h1>
+      </div>
+      <div class="text-right text-xs text-slate-300">
+        <div>正解数：<span id="header-score" class="font-bold text-amber-400 text-sm">0</span> 問クリア</div>
+      </div>
+    </div>
+
+    <!-- ナビゲーションタブ -->
+    <nav class="bg-slate-800 border-t border-slate-700">
+      <div class="max-w-4xl mx-auto px-2 flex overflow-x-auto">
+        <button onclick="switchTab('review')" id="tab-review" class="tab-btn flex-1 py-2.5 px-3 text-xs sm:text-sm font-bold border-b-4 border-blue-500 text-white whitespace-nowrap">
+          1. 要点と用語の復習
+        </button>
+        <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn flex-1 py-2.5 px-3 text-xs sm:text-sm font-bold border-b-4 border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+          2. 問題にチャレンジ
+        </button>
+        <button onclick="switchTab('summary')" id="tab-summary" class="tab-btn flex-1 py-2.5 px-3 text-xs sm:text-sm font-bold border-b-4 border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+          3. 公式・単位まとめ
+        </button>
+        <button onclick="switchTab('generator')" id="tab-generator" class="tab-btn flex-1 py-2.5 px-3 text-xs sm:text-sm font-bold border-b-4 border-transparent text-slate-400 hover:text-white whitespace-nowrap">
+          4. 類題の自動生成＆追加
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6">
+
+    <!-- ==================== TAB 1: 要点と用語の復習 ==================== -->
+    <section id="section-review" class="space-y-6">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
+        <span class="text-xl">💡</span>
+        <div class="text-sm text-blue-900">
+          <p class="font-bold">使い方ガイド</p>
+          <p class="mt-0.5">灰色の <span class="bg-slate-700 text-white text-xs px-2 py-0.5 rounded font-bold">タップして表示</span> を押すと、プリントの【  】に入る重要用語を確認できます。まずは用語と公式を頭に入れてから「2. 問題にチャレンジ」へ進みましょう！</p>
+        </div>
+      </div>
+
+      <!-- プリントその28：応力とひずみ -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-800 text-white px-5 py-3 flex items-center justify-between">
+          <h2 class="font-bold text-base">プリント その28：引張試験・応力・ひずみ</h2>
+          <span class="text-xs bg-slate-700 px-2 py-1 rounded">基本公式</span>
+        </div>
+        <div class="p-5 space-y-5">
+          <!-- 用語穴埋め -->
+          <div class="space-y-3 text-sm sm:text-base">
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-sm" onclick="toggleBlank(this, '引張試験')">タップして表示</span>
+              … 材料を引っ張ったときの変形により強さ・伸びを調べることができる試験。
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-sm" onclick="toggleBlank(this, '応力 - ひずみ線図')">タップして表示</span>
+              … 応力とひずみの関係を示すグラフ。
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-sm" onclick="toggleBlank(this, '応力')">タップして表示</span>
+              … 物体が外からの力を受けたときに発生する物体の内部に生じる力（外部からの力に抵抗する力）。
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-sm" onclick="toggleBlank(this, 'ひずみ')">タップして表示</span>
+              … 物体が変形した割合（元の長さに対してどれだけ伸びたか）。単位はない（無次元）。
+            </div>
+          </div>
+
+          <!-- 公式カード -->
+          <div class="grid sm:grid-cols-2 gap-4 pt-2">
+            <div class="border-2 border-blue-100 bg-blue-50/50 rounded-xl p-4">
+              <div class="text-xs font-bold text-blue-600 mb-1">① 応力の公式</div>
+              <div class="formula-box text-xl font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-3 rounded-lg border border-blue-100">
+                σ ＝ <span class="fraction"><span class="fraction-top">F</span><span class="fraction-bottom">A<sub>0</sub></span></span>
+              </div>
+              <ul class="text-xs text-slate-700 space-y-1 mt-2">
+                <li><strong>σ</strong>（シグマ）：応力 [N/mm² ＝ MPa]</li>
+                <li><strong>F</strong>：荷重（引っ張る力） [N]</li>
+                <li><strong>A<sub>0</sub></strong>：試験前の原断面積 [mm²]</li>
+              </ul>
+            </div>
+
+            <div class="border-2 border-emerald-100 bg-emerald-50/50 rounded-xl p-4">
+              <div class="text-xs font-bold text-emerald-600 mb-1">② ひずみの公式</div>
+              <div class="formula-box text-xl font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-3 rounded-lg border border-emerald-100">
+                ε ＝ <span class="fraction"><span class="fraction-top">l － l<sub>0</sub></span><span class="fraction-bottom">l<sub>0</sub></span></span>
+              </div>
+              <ul class="text-xs text-slate-700 space-y-1 mt-2">
+                <li><strong>ε</strong>（イプシロン）：ひずみ [単位なし]</li>
+                <li><strong>l</strong>：変形後の長さ [mm]</li>
+                <li><strong>l<sub>0</sub></strong>：元の長さ [mm]（<strong>l － l<sub>0</sub></strong> ＝ 伸びた長さ）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- プリントその29：ヤング率と線図の用語 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-800 text-white px-5 py-3 flex items-center justify-between">
+          <h2 class="font-bold text-base">プリント その29：ヤング率・応力-ひずみ線図の性質</h2>
+          <span class="text-xs bg-slate-700 px-2 py-1 rounded">フックの法則</span>
+        </div>
+        <div class="p-5 space-y-5">
+          <div class="border-2 border-purple-100 bg-purple-50/50 rounded-xl p-4">
+            <div class="text-xs font-bold text-purple-600 mb-1">③ ヤング率（縦弾性係数）の公式</div>
+            <div class="formula-box text-xl font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-3 rounded-lg border border-purple-100">
+              E ＝ <span class="fraction"><span class="fraction-top">σ</span><span class="fraction-bottom">ε</span></span>
+            </div>
+            <ul class="text-xs text-slate-700 space-y-1 mt-2">
+              <li><strong>E</strong>：ヤング率 [MPa または GPa]（剛性＝物体の変形しにくさを示す値）</li>
+              <li><strong>σ</strong>：応力 [N/mm² ＝ MPa] ／ <strong>ε</strong>：ひずみ [単位なし]</li>
+            </ul>
+          </div>
+
+          <div class="space-y-2.5 text-sm">
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-xs" onclick="toggleBlank(this, '比例限度')">タップして表示</span>
+              … ひずみと応力が比例する（フックの法則が成り立つ）最大の応力。
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-xs" onclick="toggleBlank(this, '弾性限度')">タップして表示</span>
+              … 力を除いても元の形に戻る（弾性の）限界の応力。
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="blank-card inline-block bg-slate-700 text-white font-bold px-3 py-1 rounded mr-2 text-xs" onclick="toggleBlank(this, '降伏点')">タップして表示</span>
+              … 応力の増加が止まり、ひずみだけが大きく増える現象（降伏）が起こる点。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- プリントその30：降伏応力・引張強さ・破断伸び・絞り -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-800 text-white px-5 py-3 flex items-center justify-between">
+          <h2 class="font-bold text-base">プリント その30：降伏応力・引張強さ・伸び・絞り</h2>
+          <span class="text-xs bg-slate-700 px-2 py-1 rounded">材料の強さと粘り</span>
+        </div>
+        <div class="p-5 grid sm:grid-cols-2 gap-4">
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-bold text-amber-700 mb-1">④ 降伏応力</div>
+            <div class="formula-box text-lg font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-2.5 rounded border border-slate-200">
+              σ<sub>y</sub> ＝ <span class="fraction"><span class="fraction-top">F<sub>y1</sub></span><span class="fraction-bottom">A<sub>0</sub></span></span>
+            </div>
+            <p class="text-xs text-slate-600"><strong>F<sub>y1</sub></strong>：上降伏点の力 [N] ／ <strong>A<sub>0</sub></strong>：原断面積 [mm²]</p>
+          </div>
+
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-bold text-rose-700 mb-1">⑤ 引張強さ</div>
+            <div class="formula-box text-lg font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-2.5 rounded border border-slate-200">
+              σ<sub>B</sub> ＝ <span class="fraction"><span class="fraction-top">F<sub>MAX</sub></span><span class="fraction-bottom">A<sub>0</sub></span></span>
+            </div>
+            <p class="text-xs text-slate-600"><strong>F<sub>MAX</sub></strong>：引張試験中の最大力 [N] ／ <strong>A<sub>0</sub></strong>：原断面積 [mm²]</p>
+          </div>
+
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-bold text-teal-700 mb-1">⑥ 破断伸び（％）</div>
+            <div class="formula-box text-lg font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-2.5 rounded border border-slate-200">
+              δ ＝ <span class="fraction"><span class="fraction-top">l － l<sub>0</sub></span><span class="fraction-bottom">l<sub>0</sub></span></span> × 100
+            </div>
+            <p class="text-xs text-slate-600"><strong>l<sub>0</sub></strong>：原標点距離 [mm] ／ <strong>l</strong>：最終標点距離 [mm]</p>
+          </div>
+
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-bold text-indigo-700 mb-1">⑦ 絞り（％）</div>
+            <div class="formula-box text-lg font-bold text-slate-900 my-2 flex items-center justify-center bg-white py-2.5 rounded border border-slate-200">
+              φ ＝ <span class="fraction"><span class="fraction-top">A<sub>0</sub> － A</span><span class="fraction-bottom">A<sub>0</sub></span></span> × 100
+            </div>
+            <p class="text-xs text-slate-600"><strong>A<sub>0</sub></strong>：原断面積 [mm²] ／ <strong>A</strong>：破断後の最小断面積 [mm²]</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center pt-2">
+        <button onclick="switchTab('quiz')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-md transition">
+          復習完了！問題にチャレンジする →
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: 問題にチャレンジ ==================== -->
+    <section id="section-quiz" class="hidden space-y-5">
+      <!-- レベル選択バー -->
+      <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="filterLevel('all')" id="lvl-all" class="lvl-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white">すべて (<span id="count-all">0</span>)</button>
+          <button onclick="filterLevel(1)" id="lvl-1" class="lvl-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">① 基礎編</button>
+          <button onclick="filterLevel(2)" id="lvl-2" class="lvl-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">② プリント実戦編</button>
+          <button onclick="filterLevel(3)" id="lvl-3" class="lvl-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">③ ステップアップ編</button>
+        </div>
+        <button onclick="resetProgress()" class="text-xs text-slate-500 hover:text-rose-600 underline">学習記録をリセット</button>
+      </div>
+
+      <!-- 問題カード -->
+      <div id="quiz-container" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <div class="flex items-center gap-2">
+            <span id="q-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800">① 基礎編</span>
+            <span id="q-topic" class="text-xs font-bold text-slate-500">応力の計算</span>
+          </div>
+          <span id="q-counter" class="text-sm font-bold text-slate-500">1 / 15</span>
+        </div>
+
+        <!-- 問題文 -->
+        <div id="q-text" class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed mb-6">
+          問題文がここに表示されます
+        </div>
+
+        <!-- 解答入力エリア -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4">
+          <label class="block text-xs font-bold text-slate-600 mb-2">答え（半角数字で入力）</label>
+          <div class="flex flex-wrap items-center gap-2">
+            <input type="number" step="any" id="user-answer" placeholder="例: 30"
+              onkeydown="if(event.key==='Enter') checkAnswer()"
+              class="flex-1 min-w-[140px] max-w-[240px] px-4 py-2.5 text-lg font-bold bg-white border-2 border-slate-300 rounded-xl focus:outline-none focus:border-blue-500">
+            <span id="q-unit" class="text-base font-bold text-slate-700">N/mm²</span>
+            <button onclick="checkAnswer()" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl shadow-sm transition">
+              答え合わせ
+            </button>
+          </div>
+          <p id="input-error" class="hidden text-xs font-bold text-rose-600 mt-2">※ 数値を入力してから「答え合わせ」を押してください。</p>
+        </div>
+
+        <!-- ヒントボタン＆表示 -->
+        <div class="mb-4">
+          <button onclick="toggleHint()" class="text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-3 py-1.5 rounded-lg transition">
+            💡 ヒント（使う公式）を見る
+          </button>
+          <div id="q-hint" class="hidden mt-2 p-3 bg-amber-50/70 border border-amber-200 rounded-lg text-sm text-amber-900">
+          </div>
+        </div>
+
+        <!-- 判定＆解説エリア -->
+        <div id="feedback-area" class="hidden rounded-xl p-5 border-2 mt-4">
+          <div id="feedback-header" class="flex items-center gap-2 text-lg font-black mb-3"></div>
+          <div class="bg-white/90 rounded-lg p-4 border border-slate-200/80 text-sm text-slate-800 space-y-1.5">
+            <div class="font-bold text-slate-900 border-b border-slate-200 pb-1 mb-2">【解き方・解説】</div>
+            <div id="feedback-explanation" class="leading-relaxed space-y-1"></div>
+          </div>
+        </div>
+
+        <!-- 前後ナビゲーション -->
+        <div class="flex items-center justify-between pt-6 mt-6 border-t border-slate-100">
+          <button onclick="prevQuestion()" id="prev-btn" class="px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100 disabled:opacity-40">
+            ← 前の問題
+          </button>
+          <button onclick="nextQuestion()" id="next-btn" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-slate-900 text-white hover:bg-slate-800">
+            次の問題へ →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: 公式・単位まとめ ==================== -->
+    <section id="section-summary" class="hidden space-y-6">
+      <!-- 計算のワンポイントアドバイス -->
+      <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-5">
+        <h2 class="text-base font-black text-amber-900 flex items-center gap-2 mb-3">
+          <span>⚠️</span> テストで間違えやすい！計算のワンポイントアドバイス
+        </h2>
+        <ul class="space-y-2.5 text-sm text-amber-950">
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-amber-700">・</span>
+            <span>長さの単位（<strong>cm</strong> と <strong>mm</strong>）の換算に注意しましょう（<strong>1 cm ＝ 10 mm</strong>）。</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-amber-700">・</span>
+            <span>面積の単位（<strong>cm²</strong> と <strong>mm²</strong>）の換算は100倍になります（<strong>1 cm² ＝ 10 mm × 10 mm ＝ 100 mm²</strong>）。</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-amber-700">・</span>
+            <span>力の単位（<strong>kN</strong> と <strong>N</strong>）の換算に注意しましょう（<strong>1 kN ＝ 1000 N</strong>）。</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-amber-700">・</span>
+            <span>ヤング率の単位（<strong>GPa</strong> と <strong>MPa</strong> と <strong>Pa</strong>）の換算に注意しましょう（<strong>1 GPa ＝ 1000 MPa</strong>、<strong>1 MPa ＝ 1 N/mm² ＝ 1,000,000 Pa</strong>）。</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-amber-700">・</span>
+            <span>円の断面積を求める際、<strong>半径 r</strong> なのか <strong>直径 d</strong> なのかを必ず確認しましょう（面積 ＝ 半径 × 半径 × 3.14）。</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 逆算変形公式チートシート -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+        <h2 class="text-base font-black text-slate-900 mb-4">よく使う「変形公式」一覧</h2>
+        <div class="grid sm:grid-cols-2 gap-4 text-sm">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-blue-700 mb-2">応力の公式（σ ＝ F ÷ A<sub>0</sub>）の変形</div>
+            <ul class="space-y-1.5 text-slate-700">
+              <li>・力 F を求める： <strong>F ＝ σ × A<sub>0</sub></strong></li>
+              <li>・断面積 A<sub>0</sub> を求める： <strong>A<sub>0</sub> ＝ F ÷ σ</strong></li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-emerald-700 mb-2">ひずみの公式（ε ＝ (l － l<sub>0</sub>) ÷ l<sub>0</sub>）の変形</div>
+            <ul class="space-y-1.5 text-slate-700">
+              <li>・伸びた長さ (l － l<sub>0</sub>) を求める： <strong>l － l<sub>0</sub> ＝ ε × l<sub>0</sub></strong></li>
+              <li>・伸びた後の長さ l を求める： <strong>l ＝ l<sub>0</sub> × (1 ＋ ε)</strong></li>
+              <li>・元の長さ l<sub>0</sub> を求める： <strong>l<sub>0</sub> ＝ l ÷ (1 ＋ ε)</strong></li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-purple-700 mb-2">ヤング率（E ＝ σ ÷ ε）の変形</div>
+            <ul class="space-y-1.5 text-slate-700">
+              <li>・応力 σ を求める： <strong>σ ＝ E × ε</strong></li>
+              <li>・ひずみ ε を求める： <strong>ε ＝ σ ÷ E</strong></li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-rose-700 mb-2">降伏応力・引張強さの変形</div>
+            <ul class="space-y-1.5 text-slate-700">
+              <li>・原断面積 A<sub>0</sub> を求める： <strong>A<sub>0</sub> ＝ F<sub>MAX</sub> ÷ σ<sub>B</sub></strong></li>
+              <li>・最大力 F<sub>MAX</sub> を求める： <strong>F<sub>MAX</sub> ＝ σ<sub>B</sub> × A<sub>0</sub></strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: 類題の自動生成＆追加 ==================== -->
+    <section id="section-generator" class="hidden space-y-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-sm text-emerald-950">
+        <p class="font-bold">無限に練習できる類題生成ツール</p>
+        <p class="mt-0.5">プログラムが数値を自動で変えて新しい計算問題を作成します。テスト前の反復練習に活用してください。</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- ① 数値シャッフル自動生成 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">ワンクリック自動作成</span>
+              <span class="text-xs text-slate-400">計算ミスなし</span>
+            </div>
+            <h3 class="text-base font-black text-slate-900 mb-2">① 数値シャッフル類題生成</h3>
+            <p class="text-xs text-slate-600 mb-4">単元を選んでボタンを押すと、割り切れる適切な数値で新しい問題を自動生成し、問題リストに追加します。</p>
+
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">作成する問題のタイプを選択</label>
+            <select id="auto-gen-type" class="w-full p-2.5 text-sm font-bold border border-slate-300 rounded-xl bg-slate-50 mb-4">
+              <option value="stress">応力 σ を求める（基本）</option>
+              <option value="force">荷重 F を求める（逆算）</option>
+              <option value="circle_stress">円形断面の試験片の応力（直径から計算）</option>
+              <option value="strain">ひずみ ε を求める（基本）</option>
+              <option value="elongation">伸びた後の長さ l を求める</option>
+              <option value="young">ヤング率 E を求める</option>
+              <option value="tensile">引張強さ σB と降伏応力 σy</option>
+            </select>
+          </div>
+
+          <div>
+            <button onclick="generateRandomQuestion()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-sm transition">
+              ＋ 新しい類題を生成して追加する
+            </button>
+            <p id="auto-gen-msg" class="hidden text-xs font-bold text-emerald-600 mt-2 text-center"></p>
+          </div>
+        </div>
+
+        <!-- ② 手動で問題を作成 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">オリジナル問題</span>
+          </div>
+          <h3 class="text-base font-black text-slate-900 mb-2">② 手動で問題を追加</h3>
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">難易度レベル</label>
+              <select id="manual-level" class="w-full p-2 border border-slate-300 rounded-lg bg-slate-50">
+                <option value="1">① 基礎編</option>
+                <option value="2">② プリント実戦編</option>
+                <option value="3">③ ステップアップ編</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">問題文</label>
+              <textarea id="manual-text" rows="2" placeholder="例：断面積 50 mm² の試験片を 1000 N で引っ張ったときの応力を答えよ。" class="w-full p-2 border border-slate-300 rounded-lg"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">正解の数値（半角）</label>
+                <input type="number" step="any" id="manual-answer" placeholder="例：20" class="w-full p-2 border border-slate-300 rounded-lg">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">単位</label>
+                <input type="text" id="manual-unit" placeholder="例：N/mm²" class="w-full p-2 border border-slate-300 rounded-lg">
+              </div>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">解説（任意）</label>
+              <input type="text" id="manual-exp" placeholder="例：σ ＝ 1000 ÷ 50 ＝ 20 N/mm²" class="w-full p-2 border border-slate-300 rounded-lg">
+            </div>
+            <button onclick="addManualQuestion()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-xl transition">
+              この問題をリストに追加
+            </button>
+            <p id="manual-msg" class="hidden text-xs font-bold text-emerald-600 text-center"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 追加済みカスタム問題管理 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex items-center justify-between">
+        <div>
+          <h4 class="text-sm font-bold text-slate-900">追加した問題データ</h4>
+          <p class="text-xs text-slate-500">現在 <span id="custom-q-count" class="font-bold text-blue-600">0</span> 問の追加問題が保存されています。</p>
+        </div>
+        <button onclick="clearCustomQuestions()" class="text-xs font-bold text-rose-600 hover:bg-rose-50 border border-rose-200 px-3 py-2 rounded-lg">
+          追加問題をすべて削除
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-slate-400 py-6 border-t border-slate-200 mt-10">
+    2学年 工業材料技術 復習アプリ（プリント その28〜30 準拠）
+  </footer>
+
+  <script>
+    // ==================== 初期問題データ（プリントその28〜30準拠 計15問） ====================
+    const defaultQuestions = [
+      // ① 基礎編 (Level 1)
+      {
+        id: 1,
+        level: 1,
+        topic: "応力の計算（その28 Ex.）",
+        text: "断面積 20 mm² の試験片を 600 N で引っ張ったときに発生する応力は何 N/mm² か答えなさい。",
+        answer: 30,
+        tolerance: 0.01,
+        unit: "N/mm²",
+        hint: "公式：σ ＝ F ÷ A₀ （荷重 F ＝ 600 N、断面積 A₀ ＝ 20 mm²）",
+        explanation: "応力の公式 σ ＝ F ÷ A₀ を使います。<br>σ ＝ 600 ÷ 20 ＝ <strong>30 N/mm²</strong>"
+      },
+      {
+        id: 2,
+        level: 1,
+        topic: "原断面積の逆算（その28）",
+        text: "試験片を 200 N で引っ張った時の応力が 25 N/mm² だった。試験前の原断面積は何 mm² か答えなさい。",
+        answer: 8,
+        tolerance: 0.01,
+        unit: "mm²",
+        hint: "公式：A₀ ＝ F ÷ σ （荷重 F ＝ 200 N、応力 σ ＝ 25 N/mm²）",
+        explanation: "σ ＝ F ÷ A₀ を変形すると、A₀ ＝ F ÷ σ になります。<br>A₀ ＝ 200 ÷ 25 ＝ <strong>8 mm²</strong>"
+      },
+      {
+        id: 3,
+        level: 1,
+        topic: "荷重の逆算（その28）",
+        text: "断面積 30 mm² の試験片を一定の力で引っ張ったときに発生する応力が 40 N/mm² だった。引っ張った力は何 N か答えなさい。",
+        answer: 1200,
+        tolerance: 0.1,
+        unit: "N",
+        hint: "公式：F ＝ σ × A₀ （応力 σ ＝ 40 N/mm²、断面積 A₀ ＝ 30 mm²）",
+        explanation: "σ ＝ F ÷ A₀ を変形すると、F ＝ σ × A₀ になります。<br>F ＝ 40 × 30 ＝ <strong>1200 N</strong>"
+      },
+      {
+        id: 4,
+        level: 1,
+        topic: "ひずみの計算（その28 Ex.）",
+        text: "元の長さが 40 mm の試験片に力を加えると変形が起き、長さが 42 mm になった。ひずみはいくつか答えなさい。（単位なし）",
+        answer: 0.05,
+        tolerance: 0.001,
+        unit: "（単位なし）",
+        hint: "公式：ε ＝ (l － l₀) ÷ l₀ （元の長さ l₀ ＝ 40 mm、変形後の長さ l ＝ 42 mm）",
+        explanation: "伸びた長さは l － l₀ ＝ 42 － 40 ＝ 2 mm です。<br>ε ＝ 2 ÷ 40 ＝ <strong>0.05</strong>"
+      },
+      {
+        id: 5,
+        level: 1,
+        topic: "伸びた後の長さ（その28）",
+        text: "元の長さが 50 mm の試験片を引き延ばしたところ、ひずみが 0.07 になった。引き伸ばした後の棒の長さは何 mm か答えなさい。",
+        answer: 53.5,
+        tolerance: 0.05,
+        unit: "mm",
+        hint: "まず伸びた長さ (l － l₀) ＝ ε × l₀ を求め、元の長さ 50 mm に足します。",
+        explanation: "伸びた長さは 0.07 × 50 ＝ 3.5 mm です。<br>したがって、引き伸ばした後の長さは 50 ＋ 3.5 ＝ <strong>53.5 mm</strong>"
+      },
+
+      // ② プリント実戦編 (Level 2)
+      {
+        id: 6,
+        level: 2,
+        topic: "円形断面の応力（その28）",
+        text: "断面が直径 2 cm の円形試験片を 800 N で引っ張るときに発生する応力は何 N/mm² か。有効数字3桁で答えなさい。（円周率は 3.14 とする）",
+        answer: 2.55,
+        tolerance: 0.02,
+        unit: "N/mm²",
+        hint: "直径 2 cm ＝ 20 mm なので、半径は 10 mm です。断面積 A₀ ＝ 10 × 10 × 3.14 ＝ 314 mm² を使って計算します。",
+        explanation: "① 直径 2 cm ＝ 20 mm → 半径 r ＝ 10 mm<br>② 断面積 A₀ ＝ 10 × 10 × 3.14 ＝ 314 mm²<br>③ 応力 σ ＝ 800 ÷ 314 ＝ 2.5477… → 有効数字3桁で <strong>2.55 N/mm²</strong>（2.54も許容）"
+      },
+      {
+        id: 7,
+        level: 2,
+        topic: "単位換算と応力（その28）",
+        text: "断面積が 40 cm² の試験片を 6.0 × 10⁷ N で引っ張ったときに発生する応力は何 N/mm² か答えなさい。",
+        answer: 15000,
+        tolerance: 1,
+        unit: "N/mm²",
+        hint: "1 cm² ＝ 100 mm² なので、40 cm² ＝ 4000 mm² です。6.0 × 10⁷ ＝ 60,000,000 N です。",
+        explanation: "断面積を mm² に直すと、40 cm² × 100 ＝ 4000 mm² です。<br>σ ＝ 60,000,000 ÷ 4000 ＝ <strong>15000 N/mm²</strong>"
+      },
+      {
+        id: 8,
+        level: 2,
+        topic: "元の長さの逆算（その28）",
+        text: "元の長さが不明の試験片を引き延ばしたところ、ひずみが 0.15 になり、引き伸ばした後の棒の長さは 57.5 mm だった。元の長さは何 mm か答えなさい。",
+        answer: 50,
+        tolerance: 0.1,
+        unit: "mm",
+        hint: "公式：l ＝ l₀ × (1 ＋ ε) より、l₀ ＝ l ÷ (1 ＋ ε) で求められます。",
+        explanation: "引き伸ばした後の長さ l は元の長さ l₀ の (1 ＋ 0.15) ＝ 1.15 倍になります。<br>l₀ ＝ 57.5 ÷ 1.15 ＝ <strong>50 mm</strong>"
+      },
+      {
+        id: 9,
+        level: 2,
+        topic: "ひずみの四捨五入（その29）",
+        text: "元の長さが 3.8 cm の試験片に力を加えると、長さが 4.2 cm になった。ひずみはいくつか、小数第3位を四捨五入して小数第2位まで答えなさい。",
+        answer: 0.11,
+        tolerance: 0.005,
+        unit: "（単位なし）",
+        hint: "単位が cm で揃っているのでそのまま計算できます。ε ＝ (4.2 － 3.8) ÷ 3.8",
+        explanation: "伸びた長さは 4.2 － 3.8 ＝ 0.4 cm（4 mm）です。<br>ε ＝ 0.4 ÷ 3.8 ＝ 0.10526… → 小数第3位を四捨五入して <strong>0.11</strong>"
+      },
+      {
+        id: 10,
+        level: 2,
+        topic: "ヤング率の計算（その29）",
+        text: "30 N/mm² の応力が発生している材料のひずみが 0.003 だった時、この材料のヤング率は何 MPa か答えよ。（1 N/mm² ＝ 1 MPa）",
+        answer: 10000,
+        tolerance: 1,
+        unit: "MPa",
+        hint: "公式：E ＝ σ ÷ ε （σ ＝ 30 MPa、ε ＝ 0.003）",
+        explanation: "ヤング率の公式 E ＝ σ ÷ ε を使います。<br>E ＝ 30 ÷ 0.003 ＝ <strong>10000 MPa</strong>（Pa に直すと 1.0 × 10⁷ Pa）"
+      },
+      {
+        id: 11,
+        level: 2,
+        topic: "降伏応力と引張強さ（その30 Ex.）",
+        text: "試験前の原断面積が 20 mm² の試験片で引張試験を行った結果、上降伏点の力は 20 N、最大力は 80 N だった。この材料の「引張強さ」は何 N/mm² か答えなさい。",
+        answer: 4,
+        tolerance: 0.01,
+        unit: "N/mm²",
+        hint: "引張強さは「最大力 FMAX」を使います。σB ＝ FMAX ÷ A₀",
+        explanation: "引張強さ σB ＝ FMAX ÷ A₀ ＝ 80 ÷ 20 ＝ <strong>4 N/mm²</strong><br>（ちなみに降伏応力は 20 ÷ 20 ＝ 1 N/mm² です）"
+      },
+
+      // ③ ステップアップ編 (Level 3)
+      {
+        id: 12,
+        level: 3,
+        topic: "円形断面の荷重逆算（その28）",
+        text: "断面が直径 2.4 cm の円形の試験片をある力で引っ張ったとき、応力が 82 N/mm² だった。引っ張った力の大きさは何 N か答えよ。（円周率は 3.14 とする）",
+        answer: 37077.12,
+        tolerance: 1,
+        unit: "N",
+        hint: "直径 2.4 cm ＝ 24 mm → 半径は 12 mm です。まず断面積 A₀ ＝ 12 × 12 × 3.14 を求め、F ＝ σ × A₀ を計算します。",
+        explanation: "① 直径 2.4 cm ＝ 24 mm → 半径 r ＝ 12 mm<br>② 断面積 A₀ ＝ 12 × 12 × 3.14 ＝ 452.16 mm²<br>③ 力 F ＝ 82 × 452.16 ＝ <strong>37077.12 N</strong>"
+      },
+      {
+        id: 13,
+        level: 3,
+        topic: "ヤング率と単位換算（その29）",
+        text: "ヤング率が 2 GPa の材料に 400 MPa の応力が発生しているとき、ひずみはいくつか答えよ。（1 GPa ＝ 1000 MPa）",
+        answer: 0.2,
+        tolerance: 0.001,
+        unit: "（単位なし）",
+        hint: "2 GPa ＝ 2000 MPa に単位を揃えてから、ε ＝ σ ÷ E を計算します。",
+        explanation: "ヤング率の単位を MPa に揃えると、2 GPa ＝ 2000 MPa です。<br>ε ＝ σ ÷ E ＝ 400 ÷ 2000 ＝ <strong>0.2</strong>"
+      },
+      {
+        id: 14,
+        level: 3,
+        topic: "原断面積と降伏応力（その30 Q.1）",
+        text: "原断面積が不明の試験片で引張試験を行った結果、上降伏点の力は 32 N、最大力は 80 N、引張強さは 16 N/mm² だった。この試験片の「降伏応力」は何 N/mm² か答えなさい。",
+        answer: 6.4,
+        tolerance: 0.05,
+        unit: "N/mm²",
+        hint: "まず引張強さと最大力から原断面積 A₀ ＝ 80 ÷ 16 を求め、次に降伏応力 σy ＝ 32 ÷ A₀ を計算します。",
+        explanation: "① 原断面積 A₀ ＝ FMAX ÷ σB ＝ 80 ÷ 16 ＝ 5 mm²<br>② 降伏応力 σy ＝ Fy1 ÷ A₀ ＝ 32 ÷ 5 ＝ <strong>6.4 N/mm²</strong>"
+      },
+      {
+        id: 15,
+        level: 3,
+        topic: "kN単位と最大力の計算（その30 Q.2）",
+        text: "原断面積が不明の試験片で、上降伏点の力は 4.2 kN、降伏応力は 105 N/mm²、引張強さは 600 N/mm² だった。引張試験中の最大力は何 kN か答えなさい。",
+        answer: 24,
+        tolerance: 0.1,
+        unit: "kN",
+        hint: "4.2 kN ＝ 4200 N です。まず原断面積 A₀ ＝ 4200 ÷ 105 を求め、次に最大力 FMAX ＝ 600 × A₀ を N で出して kN に直します。",
+        explanation: "① 上降伏点の力 Fy1 ＝ 4.2 kN ＝ 4200 N<br>② 原断面積 A₀ ＝ 4200 ÷ 105 ＝ 40 mm²<br>③ 最大力 FMAX ＝ 600 × 40 ＝ 24000 N ＝ <strong>24 kN</strong>"
+      }
+    ];
+
+    // ==================== アプリ状態管理 ====================
+    let customQuestions = JSON.parse(localStorage.getItem('kozai_custom_questions') || '[]');
+    let solvedIds = JSON.parse(localStorage.getItem('kozai_solved_ids') || '[]');
+    let currentLevelFilter = 'all';
+    let currentIndex = 0;
+
+    function getAllQuestions() {
+      return [...defaultQuestions, ...customQuestions];
+    }
+
+    function getFilteredQuestions() {
+      const all = getAllQuestions();
+      if (currentLevelFilter === 'all') return all;
+      return all.filter(q => Number(q.level) === Number(currentLevelFilter));
+    }
+
+    // ==================== タブ切り替え ====================
+    function switchTab(tabName) {
+      ['review', 'quiz', 'summary', 'generator'].forEach(name => {
+        document.getElementById(`section-${name}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${name}`);
+        btn.classList.remove('border-blue-500', 'text-white');
+        btn.classList.add('border-transparent', 'text-slate-400');
+      });
+      document.getElementById(`section-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      activeBtn.classList.remove('border-transparent', 'text-slate-400');
+      activeBtn.classList.add('border-blue-500', 'text-white');
+
+      if (tabName === 'quiz') {
+        renderQuestion();
+      } else if (tabName === 'generator') {
+        updateCustomCount();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ==================== 用語穴埋めカード ====================
+    function toggleBlank(el, answerText) {
+      if (el.dataset.revealed === 'true') {
+        el.textContent = 'タップして表示';
+        el.classList.remove('bg-blue-100', 'text-blue-900', 'border', 'border-blue-400');
+        el.classList.add('bg-slate-700', 'text-white');
+        el.dataset.revealed = 'false';
+      } else {
+        el.textContent = `【 ${answerText} 】`;
+        el.classList.remove('bg-slate-700', 'text-white');
+        el.classList.add('bg-blue-100', 'text-blue-900', 'border', 'border-blue-400');
+        el.dataset.revealed = 'true';
+      }
+    }
+
+    // ==================== 問題演習ロジック ====================
+    function filterLevel(lvl) {
+      currentLevelFilter = lvl;
+      currentIndex = 0;
+      document.querySelectorAll('.lvl-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      const activeBtn = document.getElementById(`lvl-${lvl}`);
+      activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+      activeBtn.classList.add('bg-slate-900', 'text-white');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const list = getFilteredQuestions();
+      document.getElementById('count-all').textContent = getAllQuestions().length;
+      document.getElementById('header-score').textContent = solvedIds.length;
+
+      if (list.length === 0) return;
+      if (currentIndex >= list.length) currentIndex = 0;
+
+      const q = list[currentIndex];
+      const badgeEl = document.getElementById('q-badge');
+      if (Number(q.level) === 1) {
+        badgeEl.textContent = '① 基礎編';
+        badgeEl.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800';
+      } else if (Number(q.level) === 2) {
+        badgeEl.textContent = '② プリント実戦編';
+        badgeEl.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800';
+      } else {
+        badgeEl.textContent = '③ ステップアップ編';
+        badgeEl.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800';
+      }
+
+      document.getElementById('q-topic').textContent = q.topic + (solvedIds.includes(q.id) ? ' ✅クリア済' : '');
+      document.getElementById('q-counter').textContent = `${currentIndex + 1} / ${list.length}`;
+      document.getElementById('q-text').textContent = q.text;
+      document.getElementById('q-unit').textContent = q.unit;
+
+      // リセット
+      const inputEl = document.getElementById('user-answer');
+      inputEl.value = '';
+      inputEl.disabled = false;
+      document.getElementById('input-error').classList.add('hidden');
+      document.getElementById('q-hint').classList.add('hidden');
+      document.getElementById('q-hint').textContent = q.hint || '公式一覧を参考に計算してみよう！';
+      document.getElementById('feedback-area').classList.add('hidden');
+
+      document.getElementById('prev-btn').disabled = currentIndex === 0;
+      document.getElementById('next-btn').textContent = (currentIndex === list.length - 1) ? '最初の問題へ ↺' : '次の問題へ →';
+    }
+
+    function toggleHint() {
+      document.getElementById('q-hint').classList.toggle('hidden');
+    }
+
+    function checkAnswer() {
+      const list = getFilteredQuestions();
+      const q = list[currentIndex];
+      const valStr = document.getElementById('user-answer').value.trim();
+      const errEl = document.getElementById('input-error');
+
+      if (valStr === '' || isNaN(Number(valStr))) {
+        errEl.classList.remove('hidden');
+        return;
+      }
+      errEl.classList.add('hidden');
+
+      const userVal = Number(valStr);
+      const tol = q.tolerance !== undefined ? q.tolerance : Math.abs(q.answer) * 0.01 + 0.001;
+      const isCorrect = Math.abs(userVal - q.answer) <= tol;
+
+      const fbArea = document.getElementById('feedback-area');
+      const fbHeader = document.getElementById('feedback-header');
+      const fbExp = document.getElementById('feedback-explanation');
+
+      fbArea.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-300', 'bg-rose-50', 'border-rose-300');
+
+      if (isCorrect) {
+        fbArea.classList.add('bg-emerald-50', 'border-emerald-300');
+        fbHeader.innerHTML = `<span class="text-emerald-600">⭕ 正解！素晴らしい！</span> <span class="text-sm font-bold text-emerald-800">（答え：${q.answer} ${q.unit === '（単位なし）' ? '' : q.unit}）</span>`;
+        if (!solvedIds.includes(q.id)) {
+          solvedIds.push(q.id);
+          localStorage.setItem('kozai_solved_ids', JSON.stringify(solvedIds));
+          document.getElementById('header-score').textContent = solvedIds.length;
+          document.getElementById('q-topic').textContent = q.topic + ' ✅クリア済';
+        }
+      } else {
+        fbArea.classList.add('bg-rose-50', 'border-rose-300');
+        fbHeader.innerHTML = `<span class="text-rose-600">❌ おしい！正解は ${q.answer} ${q.unit === '（単位なし）' ? '' : q.unit} です</span>`;
+      }
+
+      fbExp.innerHTML = q.explanation;
+    }
+
+    function nextQuestion() {
+      const list = getFilteredQuestions();
+      currentIndex = (currentIndex + 1) % list.length;
+      renderQuestion();
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    }
+
+    function resetProgress() {
+      solvedIds = [];
+      localStorage.removeItem('kozai_solved_ids');
+      renderQuestion();
+    }
+
+    // ==================== 数値シャッフル自動類題生成 ====================
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateRandomQuestion() {
+      const type = document.getElementById('auto-gen-type').value;
+      const newId = Date.now();
+      let newQ = null;
+
+      if (type === 'stress') {
+        const a0 = randInt(2, 12) * 5; // 10 ~ 60 mm2
+        const sigma = randInt(5, 45); // 5 ~ 45 N/mm2
+        const f = a0 * sigma;
+        newQ = {
+          id: newId,
+          level: 1,
+          topic: "【自動類題】応力の計算",
+          text: `断面積 ${a0} mm² の試験片を ${f} N で引っ張ったときに発生する応力は何 N/mm² か答えなさい。`,
+          answer: sigma,
+          tolerance: 0.01,
+          unit: "N/mm²",
+          hint: `公式：σ ＝ F ÷ A₀ （荷重 F ＝ ${f} N、断面積 A₀ ＝ ${a0} mm²）`,
+          explanation: `σ ＝ ${f} ÷ ${a0} ＝ <strong>${sigma} N/mm²</strong>`
+        };
+      } else if (type === 'force') {
+        const a0 = randInt(3, 15) * 5;
+        const sigma = randInt(10, 60);
+        const f = a0 * sigma;
+        newQ = {
+          id: newId,
+          level: 1,
+          topic: "【自動類題】荷重の逆算",
+          text: `断面積 ${a0} mm² の試験片を引っ張ったとき、発生する応力が ${sigma} N/mm² だった。引っ張った力は何 N か答えなさい。`,
+          answer: f,
+          tolerance: 0.1,
+          unit: "N",
+          hint: `公式：F ＝ σ × A₀`,
+          explanation: `F ＝ ${sigma} × ${a0} ＝ <strong>${f} N</strong>`
+        };
+      } else if (type === 'circle_stress') {
+        const d_mm = randInt(2, 6) * 10; // 20, 30, 40, 50, 60 mm
+        const r = d_mm / 2;
+        const a0 = Number((r * r * 3.14).toFixed(2));
+        const f = randInt(2, 9) * 1000;
+        const sigma = Number((f / a0).toFixed(2));
+        newQ = {
+          id: newId,
+          level: 2,
+          topic: "【自動類題】円形断面の応力",
+          text: `断面が直径 ${d_mm} mm の円形試験片を ${f} N で引っ張ったときの応力は何 N/mm² か。小数第3位を四捨五入して小数第2位まで答えなさい。（円周率は 3.14 とする）`,
+          answer: sigma,
+          tolerance: 0.02,
+          unit: "N/mm²",
+          hint: `直径 ${d_mm} mm なので半径は ${r} mm です。断面積 A₀ ＝ ${r} × ${r} × 3.14 ＝ ${a0} mm²`,
+          explanation: `① 半径 r ＝ ${d_mm} ÷ 2 ＝ ${r} mm<br>② 断面積 A₀ ＝ ${r} × ${r} × 3.14 ＝ ${a0} mm²<br>③ 応力 σ ＝ ${f} ÷ ${a0} ≒ <strong>${sigma} N/mm²</strong>`
+        };
+      } else if (type === 'strain') {
+        const l0 = randInt(2, 10) * 10; // 20 ~ 100 mm
+        const eps = randInt(2, 15) / 100; // 0.02 ~ 0.15
+        const diff = Number((l0 * eps).toFixed(2));
+        const l = Number((l0 + diff).toFixed(2));
+        newQ = {
+          id: newId,
+          level: 1,
+          topic: "【自動類題】ひずみの計算",
+          text: `元の長さが ${l0} mm の試験片に力を加えると、長さが ${l} mm になった。ひずみはいくつか答えなさい。（単位なし）`,
+          answer: eps,
+          tolerance: 0.001,
+          unit: "（単位なし）",
+          hint: `公式：ε ＝ (l － l₀) ÷ l₀`,
+          explanation: `伸びた長さは ${l} － ${l0} ＝ ${diff} mm です。<br>ε ＝ ${diff} ÷ ${l0} ＝ <strong>${eps}</strong>`
+        };
+      } else if (type === 'elongation') {
+        const l0 = randInt(3, 8) * 10;
+        const eps = randInt(4, 18) / 100;
+        const l = Number((l0 * (1 + eps)).toFixed(2));
+        newQ = {
+          id: newId,
+          level: 2,
+          topic: "【自動類題】伸びた後の長さ",
+          text: `元の長さが ${l0} mm の試験片を引き延ばしたところ、ひずみが ${eps} になった。引き伸ばした後の長さは何 mm か答えなさい。`,
+          answer: l,
+          tolerance: 0.05,
+          unit: "mm",
+          hint: `伸びた長さ ＝ ${eps} × ${l0} を計算して、元の長さ ${l0} mm に足します。`,
+          explanation: `伸びた長さは ${eps} × ${l0} ＝ ${Number((l - l0).toFixed(2))} mm なので、<br>全体の長さは ${l0} ＋ ${Number((l - l0).toFixed(2))} ＝ <strong>${l} mm</strong>`
+        };
+      } else if (type === 'young') {
+        const eps = randInt(1, 5) / 1000; // 0.001 ~ 0.005
+        const e_mpa = randInt(10, 21) * 10000; // 100000 ~ 210000 MPa
+        const sigma = Number((e_mpa * eps).toFixed(1));
+        newQ = {
+          id: newId,
+          level: 2,
+          topic: "【自動類題】ヤング率の計算",
+          text: `${sigma} N/mm² の応力が発生している材料のひずみが ${eps} だった時、この材料のヤング率は何 MPa か答えなさい。`,
+          answer: e_mpa,
+          tolerance: 1,
+          unit: "MPa",
+          hint: `公式：E ＝ σ ÷ ε`,
+          explanation: `E ＝ ${sigma} ÷ ${eps} ＝ <strong>${e_mpa} MPa</strong>`
+        };
+      } else if (type === 'tensile') {
+        const a0 = randInt(2, 10) * 5;
+        const sigB = randInt(20, 60);
+        const fmax = a0 * sigB;
+        newQ = {
+          id: newId,
+          level: 2,
+          topic: "【自動類題】引張強さの計算",
+          text: `試験前の原断面積が ${a0} mm² の試験片で引張試験を行った結果、試験中の最大力は ${fmax} N だった。この材料の引張強さは何 N/mm² か答えなさい。`,
+          answer: sigB,
+          tolerance: 0.01,
+          unit: "N/mm²",
+          hint: `公式：σB ＝ FMAX ÷ A₀`,
+          explanation: `σB ＝ ${fmax} ÷ ${a0} ＝ <strong>${sigB} N/mm²</strong>`
+        };
+      }
+
+      customQuestions.push(newQ);
+      localStorage.setItem('kozai_custom_questions', JSON.stringify(customQuestions));
+      updateCustomCount();
+
+      const msgEl = document.getElementById('auto-gen-msg');
+      msgEl.textContent = `✅「${newQ.topic}」を追加しました！（現在 全${getAllQuestions().length}問）`;
+      msgEl.classList.remove('hidden');
+    }
+
+    function addManualQuestion() {
+      const level = Number(document.getElementById('manual-level').value);
+      const text = document.getElementById('manual-text').value.trim();
+      const ansStr = document.getElementById('manual-answer').value.trim();
+      const unit = document.getElementById('manual-unit').value.trim() || '（単位なし）';
+      const exp = document.getElementById('manual-exp').value.trim() || `正解は ${ansStr} ${unit} です。`;
+      const msgEl = document.getElementById('manual-msg');
+
+      if (!text || ansStr === '' || isNaN(Number(ansStr))) {
+        msgEl.textContent = '⚠️ 問題文と正解の数値を入力してください。';
+        msgEl.className = 'text-xs font-bold text-rose-600 text-center mt-1';
+        msgEl.classList.remove('hidden');
+        return;
+      }
+
+      const newQ = {
+        id: Date.now(),
+        level: level,
+        topic: "【オリジナル問題】",
+        text: text,
+        answer: Number(ansStr),
+        tolerance: Math.abs(Number(ansStr)) * 0.01 + 0.001,
+        unit: unit,
+        hint: "公式・単位まとめを参考に計算してみよう！",
+        explanation: exp
+      };
+
+      customQuestions.push(newQ);
+      localStorage.setItem('kozai_custom_questions', JSON.stringify(customQuestions));
+      updateCustomCount();
+
+      document.getElementById('manual-text').value = '';
+      document.getElementById('manual-answer').value = '';
+      document.getElementById('manual-unit').value = '';
+      document.getElementById('manual-exp').value = '';
+
+      msgEl.textContent = `✅ 問題を追加しました！（現在 全${getAllQuestions().length}問）`;
+      msgEl.className = 'text-xs font-bold text-emerald-600 text-center mt-1';
+      msgEl.classList.remove('hidden');
+    }
+
+    function updateCustomCount() {
+      document.getElementById('custom-q-count').textContent = customQuestions.length;
+      document.getElementById('count-all').textContent = getAllQuestions().length;
+    }
+
+    function clearCustomQuestions() {
+      customQuestions = [];
+      localStorage.removeItem('kozai_custom_questions');
+      updateCustomCount();
+    }
+
+    // 初期描画
+    document.getElementById('count-all').textContent = getAllQuestions().length;
+    document.getElementById('header-score').textContent = solvedIds.length;
+  </script>
+</body>
+</html>
